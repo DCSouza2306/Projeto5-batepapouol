@@ -1,0 +1,63 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: #E5E5E5;
+}
+
+.barra-topo{
+    width: 375px;
+    height: 80px;
+    background-color: white;
+    position: fixed;
+    top:0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 0 1em lightgray;
+}
+
+.barra-topo img, .icone-pessoa{
+    margin: 0 25px;
+}
+
+.icone-pessoa{
+    font-size: 45px;
+}
+
+.container{
+    width: 375px;
+    height: 1800px;
+    background-color: #f3f3f3;
+    margin: 80px auto;
+}
+
+.barra-inferior{
+    width: 375px;
+    height: 80px;
+    background-color: white;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+textarea{
+    padding: 5px;
+    max-width: 100%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    color: black;
+    font-style: italic;
+    margin-left: 20px;
+}
+
+.botao-enviar{
+    font-size: 26px;
+    margin-right: 20px;
+}
