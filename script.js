@@ -1,13 +1,12 @@
-//enviar um POST para https://mock-api.driven.com.br/api/v6/uol/participants 
 
 const nomeUsuario = {
     name: ""
 };
-
+let mensagens = [];
 
 
 pedirNome();
-let mensagens = []
+
 function pedirNome() {
     const nome = prompt("Digite o nome de usuário:");
     nomeUsuario.name = nome;
@@ -27,14 +26,12 @@ function usuavioInvalido(repsosta) {
     alert('Usuário Inválido, digite outro nome');
     pedirNome();
 }
-//////////////////////////////////////////////////////////////////////////
 
 function usuarioConectado(resposta) {
-
 }
 
 function usuarioNaoConectado(resposta) {
-
+    alert("Erro, usuário não está mais conectado");
 }
 
 function confirmaConexao() {
@@ -43,15 +40,11 @@ function confirmaConexao() {
 
     promessa.then(usuarioConectado);
     promessa.catch(usuarioNaoConectado);
-
 }
 
 setInterval(confirmaConexao, 5000);
 
 setInterval(carregarMensagens, 3000);
-
-
-///////////////////////////////////////////////////////////////
 
 function carregarMensagens() {
     const promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
@@ -59,10 +52,6 @@ function carregarMensagens() {
     promessa.then(renderizarMensagens);
     promessa.catch(erroMensagens);
 }
-
-/*
-{from: 'Emicida', to: 'Todos', text: 'entra na sala...', type: 'status', time: '06:46:30'}
-*/
 
 function renderizarMensagens(resposta) {
     mensagens = resposta.data;
@@ -73,56 +62,52 @@ function renderizarMensagens(resposta) {
 
     for (let i = 0; i < mensagens.length; i++) {
 
-        if (mensagens[i].type === 'status') {
+        switch (mensagens[i].type) {
+            case 'status':
 
-            ul.innerHTML = ul.innerHTML + `
-        <li class="mensagem alerta-entrada">
-        <span><span class="horario">${mensagens[i].time}</span><strong>${mensagens[i].from}</strong> ${mensagens[i].text}</span>
-        </li>
-        `;
-        }
-
-        if (mensagens[i].type === 'private_message') {
-            
-            ul.innerHTML = ul.innerHTML + `
-            <li class="mensagem mensagem-privada">
-                <span><span class="horario">${mensagens[i].time}</span><strong>${mensagens[i].from}</strong> para <strong>${mensagens[i].to}</strong>: ${mensagens[i].text}</span>
+                ul.innerHTML = ul.innerHTML + `
+            <li class="mensagem alerta-entrada">
+            <span><span class="horario">${mensagens[i].time}</span><strong>${mensagens[i].from}</strong> ${mensagens[i].text}</span>
             </li>
             `;
+                break;
 
-        } 
-        if (mensagens[i].type === 'message') {
-            
-            ul.innerHTML = ul.innerHTML + `
-            <li class="mensagem mensagem-todos">
-                <span><span class="horario">${mensagens[i].time}</span><strong>${mensagens[i].from}</strong> para <strong>${mensagens[i].to}</strong>: ${mensagens[i].text}</span>
-            </li>
-            `;
+            case 'private_message':
+                ul.innerHTML = ul.innerHTML + `
+                <li class="mensagem mensagem-privada">
+                    <span><span class="horario">${mensagens[i].time}</span><strong>${mensagens[i].from}</strong> para <strong>${mensagens[i].to}</strong>: ${mensagens[i].text}</span>
+                </li>
+                `;
+                break;
+            case 'message':
+                ul.innerHTML = ul.innerHTML + `
+                <li class="mensagem mensagem-todos">
+                    <span><span class="horario">${mensagens[i].time}</span><strong>${mensagens[i].from}</strong> para <strong>${mensagens[i].to}</strong>: ${mensagens[i].text}</span>
+                </li>
+                `;
+                break;
+
+            default:
+                alert("Não foi possível inserir novas mensagens!");
 
         }
+
     }
-    let elementoQueQueroQueApareca = document.querySelector('ul');
-    elementoQueQueroQueApareca = elementoQueQueroQueApareca.lastElementChild
-    console.log(elementoQueQueroQueApareca)
+    
+    let elementoQueQueroQueApareca = document.querySelector('ul').lastElementChild
     elementoQueQueroQueApareca.scrollIntoView();
 
 }
 
 function erroMensagens(resposta) {
-    console.log('deu erro');
+    alert('Erro ao carregar as mensagens');
 }
 
-
-
-function sucessoNoEnvio(resposta){
-    console.log("deu certo o envio da mensagem")
+function erroNoEnvio(resposta) {
+    alert("Erro ao enviar a mensagem")
 }
 
-function erroNoEnvio(resposta){
-    console.log("deu errado o envio da mensagem")
-}
-
-function enviarMensagem(){
+function enviarMensagem() {
     const mensagemEnviada = document.querySelector('textarea');
 
     const mensagemObjeto = {
