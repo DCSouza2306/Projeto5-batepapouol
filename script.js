@@ -4,12 +4,12 @@ const nomeUsuario = {
     name: ""
 };
 
+
+
 pedirNome();
 let mensagens = []
 function pedirNome() {
     const nome = prompt("Digite o nome de usuário:");
-
-
     nomeUsuario.name = nome;
     console.log(nomeUsuario);
     const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', nomeUsuario);
@@ -46,6 +46,10 @@ function confirmaConexao() {
 
 }
 
+setInterval(confirmaConexao, 5000);
+
+setInterval(carregarMensagens, 3000);
+
 
 ///////////////////////////////////////////////////////////////
 
@@ -61,7 +65,6 @@ function carregarMensagens() {
 */
 
 function renderizarMensagens(resposta) {
-    console.log(resposta.data);
     mensagens = resposta.data;
 
     const ul = document.querySelector(".lista-mensagens");
@@ -73,8 +76,8 @@ function renderizarMensagens(resposta) {
         if (mensagens[i].type === 'status') {
 
             ul.innerHTML = ul.innerHTML + `
-        <li class="alerta-entrada">
-        <span class="mensagem"><span class="horario">${mensagens[i].time}</span><strong>${mensagens[i].from}</strong> ${mensagens[i].text}</span>
+        <li class="mensagem alerta-entrada">
+        <span><span class="horario">${mensagens[i].time}</span><strong>${mensagens[i].from}</strong> ${mensagens[i].text}</span>
         </li>
         `;
         }
@@ -82,8 +85,8 @@ function renderizarMensagens(resposta) {
         if (mensagens[i].type === 'private_message') {
             
             ul.innerHTML = ul.innerHTML + `
-            <li class="mensagem-privada">
-                <span class="usuario"><span class="horario">${mensagens[i].time}</span><strong>${mensagens[i].from}</strong> para <strong>${mensagens[i].to}</strong>: ${mensagens[i].text}</span>
+            <li class="mensagem mensagem-privada">
+                <span><span class="horario">${mensagens[i].time}</span><strong>${mensagens[i].from}</strong> para <strong>${mensagens[i].to}</strong>: ${mensagens[i].text}</span>
             </li>
             `;
 
@@ -91,21 +94,54 @@ function renderizarMensagens(resposta) {
         if (mensagens[i].type === 'message') {
             
             ul.innerHTML = ul.innerHTML + `
-            <li class="mensagem-todos">
-                <span class="usuario"><span class="horario">${mensagens[i].time}</span><strong>${mensagens[i].from}</strong> para <strong>${mensagens[i].to}</strong>: ${mensagens[i].text}</span>
+            <li class="mensagem mensagem-todos">
+                <span><span class="horario">${mensagens[i].time}</span><strong>${mensagens[i].from}</strong> para <strong>${mensagens[i].to}</strong>: ${mensagens[i].text}</span>
             </li>
             `;
 
         }
-        
-
     }
+    let elementoQueQueroQueApareca = document.querySelector('ul');
+    elementoQueQueroQueApareca = elementoQueQueroQueApareca.lastElementChild
+    console.log(elementoQueQueroQueApareca)
+    elementoQueQueroQueApareca.scrollIntoView();
 
 }
 
 function erroMensagens(resposta) {
     console.log('deu erro');
 }
+
+
+
+function sucessoNoEnvio(resposta){
+    console.log("deu certo o envio da mensagem")
+}
+
+function erroNoEnvio(resposta){
+    console.log("deu errado o envio da mensagem")
+}
+
+function enviarMensagem(){
+    const mensagemEnviada = document.querySelector('textarea');
+
+    const mensagemObjeto = {
+        from: nomeUsuario.name,
+        to: "Todos",
+        text: mensagemEnviada.value,
+        type: "message"
+    }
+
+    const envio = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', mensagemObjeto);
+
+    envio.then(carregarMensagens);
+    envio.catch(erroNoEnvio);
+
+    mensagemEnviada.value = '';
+
+}
+
+
 
 
 

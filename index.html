@@ -21,29 +21,14 @@
     </div>
 
     <div class="container">
-        <ul class="lista-mensagens">
-
-
-            <li class="mensagem alerta-entrada">
-                <span class="mensagem"><span class="horario">(06:46:30)</span><strong>Emicida</strong> entra na sala...</span>
-            </li>
-
-            <li class="mensagem mensagem-todos">
-                <span class="usuario"><span class="horario">(06:46:30)</span><strong>Emicida</strong> para <strong>Todos</strong>: Bom dia a todos</span>
-            </li>
-
-            <li class="mensagem mensagem-privada">
-                <span class="usuario"><span class="horario">(06:46:30)</span><strong> Emicida</strong> reservadamente para <strong>Maria</strong>: Bom dia a Maria</span>
-            </li>
-
-            
+        <ul class="lista-mensagens">    
 
         </ul>
     </div>
 
     <div class="barra-inferior">
-        <textarea rows="1" cols="30" placeholder="Escreva aqui..."></textarea>
-        <ion-icon class="botao-enviar" name="paper-plane-outline"></ion-icon>
+        <textarea class="area-texto"rows="2" cols="30" placeholder="Escreva aqui..."></textarea>
+        <ion-icon class="botao-enviar" onclick="enviarMensagem()" name="paper-plane-outline"></ion-icon>
     </div>
 
     <script type="module" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"></script>
