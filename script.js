@@ -5,26 +5,33 @@ const nomeUsuario = {
 let mensagens = [];
 
 
-pedirNome();
 
-function pedirNome() {
-    const nome = prompt("Digite o nome de usuário:");
-    nomeUsuario.name = nome;
-    console.log(nomeUsuario);
+function entrarComUsuario() {
+    const nome = document.querySelector('.tela-entrada input');
+    nomeUsuario.name = nome.value;
     const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', nomeUsuario);
 
     promessa.then(usuarioValido);
     promessa.catch(usuavioInvalido);
+
+    setInterval(confirmaConexao, 5000);
+
+    setInterval(carregarMensagens, 3000);
 }
 
 function usuarioValido(resposta) {
     alert('Usuário Valido');
+    const telaLogin = document.querySelector('.tela-entrada');
+    const conteudo = document.querySelector('.conteudo');
+
+    telaLogin.classList.add('escondido');
+    conteudo.classList.remove('escondido');
     carregarMensagens();
 }
 
 function usuavioInvalido(repsosta) {
     alert('Usuário Inválido, digite outro nome');
-    pedirNome();
+    entrarComUsuario();
 }
 
 function usuarioConectado(resposta) {
@@ -42,12 +49,10 @@ function confirmaConexao() {
     promessa.catch(usuarioNaoConectado);
 }
 
-setInterval(confirmaConexao, 5000);
-
-setInterval(carregarMensagens, 3000);
-
 function carregarMensagens() {
     const promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
+
+
 
     promessa.then(renderizarMensagens);
     promessa.catch(erroMensagens);
@@ -93,7 +98,7 @@ function renderizarMensagens(resposta) {
         }
 
     }
-    
+
     let elementoQueQueroQueApareca = document.querySelector('ul').lastElementChild
     elementoQueQueroQueApareca.scrollIntoView();
 

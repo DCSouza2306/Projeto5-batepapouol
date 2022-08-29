@@ -6,6 +6,45 @@ body {
     background-color: #E5E5E5;
 }
 
+.tela-entrada{
+    width: 375px;
+    height: 100vh;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    position: relative;
+}
+.tela-entrada img{
+    width: 130px;
+    height: 92px;
+    margin: 80px 122.5px;
+
+}
+
+.tela-entrada input{
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    width: 260px;
+    height: 54px;
+    border-radius: 5px;
+    border: #AAAAAA 1px solid;
+}
+
+.tela-entrada button{
+    margin: 30px auto;
+    display: block;
+    font-size: 18px;
+    width: 109px;
+    height: 45px;
+    border-radius: 5px;
+    background-color: #e7e7e7;
+    border: none;
+    color: #696969;
+}
+
+.tela-entrada button:hover{
+    cursor: pointer;
+}
 .barra-topo {
     width: 375px;
     height: 80px;
@@ -110,6 +149,10 @@ ul {
 
 span {
     margin: 13px 5px 13px 7px;
+}
+
+.escondido{
+    display: none;
 }
 
 

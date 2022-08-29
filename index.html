@@ -15,23 +15,28 @@
 </head>
 
 <body>
-
-
-    <div class="barra-topo">
+    <div class="tela-entrada">
         <img src="/logo 1.png">
-        <ion-icon  class="icone-pessoa" name="people"></ion-icon>
+        <input placeholder="Digite seu nome">
+        <button onclick="entrarComUsuario()">Entrar</button>
     </div>
+    <section class="conteudo escondido">
+        <div class="barra-topo">
+            <img src="/logo 1.png">
+            <ion-icon class="icone-pessoa" name="people"></ion-icon>
+        </div>
 
-    <div class="container">
-        <ul class="lista-mensagens">    
+        <div class="container">
+            <ul class="lista-mensagens">
 
-        </ul>
-    </div>
+            </ul>
+        </div>
 
-    <div class="barra-inferior">
-        <textarea class="area-texto"rows="1" cols="30" placeholder="Escreva aqui..."></textarea>
-        <ion-icon class="botao-enviar" onclick="enviarMensagem()" name="paper-plane-outline"></ion-icon>
-    </div>
+        <div class="barra-inferior">
+            <textarea class="area-texto" rows="1" cols="30" placeholder="Escreva aqui..."></textarea>
+            <ion-icon class="botao-enviar" onclick="enviarMensagem()" name="paper-plane-outline"></ion-icon>
+        </div>
+    </section>
 
     <script type="module" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule="" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"></script>
